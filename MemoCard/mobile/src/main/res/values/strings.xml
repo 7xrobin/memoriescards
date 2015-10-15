@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">MemoCard</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="send_button">Enviar DataMap</string>
+    <string name="front_insert">Frente do cartão</string>
+    <string name="versu_insert">Verso do cartão</string>
+    <string name="deck_tittle">Título do Deck</string>
+    <string name="deck_description">Descrição do deck</string>
+    <string name="save">Salvar</string>
+    <string name="cancel">Cancelar</string>
+</resources>
