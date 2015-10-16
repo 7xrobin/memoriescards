@@ -1,6 +1,7 @@
 package com.example.vntcaro.memocard;
 
-import android.app.DialogFragment;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,12 +12,15 @@ import android.view.View;
 
 import com.example.vntcaro.memocard.Model.Deck;
 import com.example.vntcaro.memocard.View.Adaper.DeckAdapter;
+import com.example.vntcaro.memocard.View.AddDeckFragmentDiolog;
+import com.example.vntcaro.memocard.View.ViewDeckAcivity;
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements
         AddDeckFragmentDiolog.NoticeDialogListener{
 
+    private static final String DECK_ID = "";
     private boolean mResolvingError = false;
     private static final String TAG = "MAIN MOBILE";
     private RecyclerView mRecyclerView;
@@ -29,7 +33,10 @@ public class MainActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initComps();
+    }
 
+    public void initComps(){
         mRecyclerView = (RecyclerView) findViewById(R.id.list_decks_view);
         mRecyclerView.setHasFixedSize(true);
 
@@ -41,8 +48,16 @@ public class MainActivity extends AppCompatActivity implements
         //specify a adapter
         mAdapter =new DeckAdapter(mDeck);
         mRecyclerView.setAdapter(mAdapter);
-
+        final Context context = getApplicationContext();
+        mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context,new RecyclerItemClickListener.OnItemClickListener(){
+                    @Override
+                    public void onItemClick(View vi, int position){
+                        viewDeck();
+                    }
+                })
+        );
     }
+
     @Override
     public void onPause(){
         super.onPause();
@@ -57,8 +72,8 @@ public class MainActivity extends AppCompatActivity implements
      * and  function invoques
      * **/
     public void addDeck(View view){
-        AddDeckFragmentDiolog  newDialog = new AddDeckFragmentDiolog();
-        newDialog.show(getFragmentManager(),"Add Deck Dialog");
+        AddDeckFragmentDiolog newDialog = new AddDeckFragmentDiolog();
+        newDialog.show(getFragmentManager(), "Add Deck Dialog");
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -86,11 +101,12 @@ public class MainActivity extends AppCompatActivity implements
     public void onDialogPositiveClick(Deck deck) {
         int endPos = mAdapter.getItemCount();
         mAdapter.addItem(deck);
-        mAdapter.notifyItemInserted(endPos+1);
+        mAdapter.notifyItemInserted(endPos + 1);
     }
 
-    @Override
-    public void onDialogNegativeClick(DialogFragment dialog) {
-
+    /**Class to call a activity of a deck that was clicked**/
+    public void viewDeck(){
+        Intent intent = new Intent(this, ViewDeckAcivity.class);
+        intent.putExtra(DECK_ID, 1);
     }
 }

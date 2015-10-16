@@ -9,13 +9,14 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
+        <ImageView
             android:id="@+id/deck_header"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.6"
             android:background="@android:color/holo_purple"
             android:orientation="horizontal"
+            android:src="@drawable/japan"
             android:elevation="5dp"/>
 
         <LinearLayout

@@ -1,4 +1,4 @@
-package com.example.vntcaro.memocard;
+package com.example.vntcaro.memocard.View;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.vntcaro.memocard.Model.Deck;
+import com.example.vntcaro.memocard.R;
 
 /**
  * Created by vntcaro on 09/10/2015.
@@ -24,7 +25,6 @@ public class AddDeckFragmentDiolog extends DialogFragment {
     /**Interface for listener that communicate whit the host activity**/
     public interface NoticeDialogListener {
         public void onDialogPositiveClick(Deck deck);
-        public void onDialogNegativeClick(DialogFragment dialog);
     }
 
     NoticeDialogListener mListener;
@@ -59,7 +59,6 @@ public class AddDeckFragmentDiolog extends DialogFragment {
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dismiss();
-                        mListener.onDialogNegativeClick(AddDeckFragmentDiolog.this);
                     }
                 });
         // Create the AlertDialog object and return it

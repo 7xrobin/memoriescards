@@ -18,9 +18,11 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:id="@+id/imageView"
+                android:id="@+id/deck_image"
                 android:scaleType="centerCrop"
                 android:src="@drawable/japan"
+                android:clickable="true"
+                android:background="?android:selectableItemBackground"
                 />
             <TextView
                 android:id="@+id/deck_title"

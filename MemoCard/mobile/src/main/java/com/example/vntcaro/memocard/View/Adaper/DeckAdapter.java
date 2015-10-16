@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.vntcaro.memocard.Model.Deck;
@@ -17,14 +18,15 @@ import java.util.List;
 public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> {
     private List<Deck> mDecklist;
 
-
-    public DeckAdapter(List<Deck> list){
+    /**Constructor of DeckAdapter**/
+    public DeckAdapter (List<Deck> list ){
         mDecklist = list;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.deck_card_view,parent, false);
+//        itemView.setOnClickListener((View..OnClickListener) itemListener);
         return new ViewHolder(itemView);
     }
 
@@ -53,17 +55,19 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> {
         mDecklist.add(data);
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        // each data item is just a string in this case
+    public static class ViewHolder extends RecyclerView.ViewHolder{
         public TextView mNameView;
         public TextView mDescriptionView;
+        private ImageView mImage;
 
         // Provide a reference to the views for each data item
         public ViewHolder(View v) {
             super(v);
+            mImage = (ImageView) v.findViewById(R.id.deck_image);
             mNameView = (TextView) v.findViewById(R.id.deck_title);
             mDescriptionView = (TextView) v.findViewById(R.id.deck_description);
         }
     }
+
 
 }
