@@ -3,14 +3,12 @@ package com.example.vntcaro.memocard.View;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.vntcaro.memocard.Model.Deck;
 import com.example.vntcaro.memocard.R;
@@ -80,12 +78,6 @@ public class AddDeckFragmentDiolog extends DialogFragment {
         String description = mDescriptionEdit.getText().toString();
         Deck deck = new Deck(deckName,description);
         deck.save();
-        //toast confirmation
-        Context context = getActivity();
-        CharSequence text = "Deck Salvo Id N°: "+ deck.getId().toString();
-        int duration = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
         return deck;
 
     }

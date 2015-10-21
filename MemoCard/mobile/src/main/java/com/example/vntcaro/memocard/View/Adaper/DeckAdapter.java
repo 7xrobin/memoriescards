@@ -37,18 +37,14 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> {
         holder.mDescriptionView.setText(itemDeck.description);
     }
 
-    @Override
+//    @Override
     public long getItemId(int position) {
-        return super.getItemId(position);
+        return mDecklist.get(position).getId();
     }
 
     @Override
     public int getItemCount() {
         return mDecklist.size();
-    }
-
-    public void updateList(List<Deck> data) {
-        mDecklist = data;
     }
 
     public void addItem(Deck data){

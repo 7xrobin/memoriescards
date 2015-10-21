@@ -10,17 +10,30 @@
         android:hint="@string/front_insert"
         />
     <EditText
-        android:id="@+id/versu_descreption"
+        android:id="@+id/back_description"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:hint="@string/versu_insert"
         />
+    <EditText
+        android:id="@+id/hint_description"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:hint="@string/hint_insert"
+        />
     <Button
-        android:id="@+id/add_card"
+        android:id="@+id/save_card"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:hint="@string/save"
         android:onClick="saveCard"
+        />
+    <Button
+        android:id="@+id/cancel_card"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:hint="@string/cancel"
+        android:onClick="cancelCard"
         />
 
 

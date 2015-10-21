@@ -11,10 +11,10 @@
 
         <ImageView
             android:id="@+id/deck_header"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:scaleType="centerCrop"
             android:layout_weight="0.6"
-            android:background="@android:color/holo_purple"
             android:orientation="horizontal"
             android:src="@drawable/japan"
             android:elevation="5dp"/>
@@ -31,7 +31,7 @@
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/fab_add_card"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"

@@ -6,23 +6,25 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.example.vntcaro.memocard.Model.Deck;
+import com.example.vntcaro.memocard.Utils.RecyclerItemClickListener;
 import com.example.vntcaro.memocard.View.Adaper.DeckAdapter;
 import com.example.vntcaro.memocard.View.AddDeckFragmentDiolog;
-import com.example.vntcaro.memocard.View.ViewDeckAcivity;
+import com.example.vntcaro.memocard.View.ViewDeckActivity;
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements
         AddDeckFragmentDiolog.NoticeDialogListener{
 
-    private static final String DECK_ID = "";
+    public static final String DECK_ID = "com.exemple.vntcaro.memocard.DECK_ID";
     private boolean mResolvingError = false;
-    private static final String TAG = "MAIN MOBILE";
+    private static final String TAG = "MAINACTIVITY";
     private RecyclerView mRecyclerView;
     private DeckAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -52,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements
         mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context,new RecyclerItemClickListener.OnItemClickListener(){
                     @Override
                     public void onItemClick(View vi, int position){
-                        viewDeck();
+                        viewDeck(position);
                     }
                 })
         );
@@ -101,12 +103,14 @@ public class MainActivity extends AppCompatActivity implements
     public void onDialogPositiveClick(Deck deck) {
         int endPos = mAdapter.getItemCount();
         mAdapter.addItem(deck);
-        mAdapter.notifyItemInserted(endPos + 1);
+        mAdapter.notifyItemInserted(endPos);
     }
-
     /**Class to call a activity of a deck that was clicked**/
-    public void viewDeck(){
-        Intent intent = new Intent(this, ViewDeckAcivity.class);
-        intent.putExtra(DECK_ID, 1);
+    public void viewDeck(int position){
+        Intent intent = new Intent(this, ViewDeckActivity.class);
+        long deckId= mAdapter.getItemId(position);
+        intent.putExtra(DECK_ID, deckId );
+        Log.v(TAG, String.valueOf(deckId));
+        startActivity(intent);
     }
 }

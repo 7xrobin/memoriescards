@@ -10,4 +10,5 @@
     <string name="deck_description">Descrição do deck</string>
     <string name="save">Salvar</string>
     <string name="cancel">Cancelar</string>
+    <string name="hint_insert">Adicione uma Dica</string>
 </resources>

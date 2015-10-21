@@ -41,6 +41,13 @@ public class Deck extends Model {
         this.dateCreate=date;
         this.dateUpdate=date;
     }
+    /***Get an specific Deck by a DeckId*/
+    public static Deck getDeck(long deckId){
+        return new Select()
+                .from(Deck.class)
+                .where("_id=?", deckId)
+                .executeSingle();
+    }
     /***
      * Get all instances of deck in data base
      * */

@@ -1,4 +1,4 @@
-package com.example.vntcaro.memocard;
+package com.example.vntcaro.memocard.Utils;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
