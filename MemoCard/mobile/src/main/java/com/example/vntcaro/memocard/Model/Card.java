@@ -43,10 +43,9 @@ public class Card extends Model{
     /***
      * Get all cards of a deck in data base
      * */
-    public static List<Card> getAll(Deck deck){
+    public static List<Card> getAll(){
         return new Select()
                 .from(Card.class)
-                .where("Deck =?", deck.getId())
                 .execute();
     }
 }

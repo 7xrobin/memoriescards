@@ -11,4 +11,7 @@
     <string name="save">Salvar</string>
     <string name="cancel">Cancelar</string>
     <string name="hint_insert">Adicione uma Dica</string>
+    <string name="front_error">Você precisa inserir a frente do Cartão</string>
+    <string name="back_error">Você precisa inserir o verso do Cartão</string>
+    <string name="save_card_ok">Novo Cartão adicionado com Sucesso</string>
 </resources>

@@ -20,9 +20,12 @@ public class AddDeckFragmentDiolog extends DialogFragment {
     private static View mDialogView;
     private EditText mNameEdit;
     private EditText mDescriptionEdit;
-    /**Interface for listener that communicate whit the host activity**/
+
+    /**Interface for listener that communicate whit the host activity
+     * when save deck button is pressed
+     * **/
     public interface NoticeDialogListener {
-        public void onDialogPositiveClick(Deck deck);
+        void onDialogPositiveClick(Deck deck);
     }
 
     NoticeDialogListener mListener;

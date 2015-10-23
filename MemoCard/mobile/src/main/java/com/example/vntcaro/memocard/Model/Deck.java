@@ -20,6 +20,8 @@ public class Deck extends Model {
     /**
      * Id feild it's handle by Active Library
      * **/
+//    @Column(name = "remote_id", unique = true, onUniqueConflict = Column.ConflictAction.REPLACE)
+//    public long deckId;
     @Column(name="Name")
     public String name;
     @Column(name="Description")
@@ -45,7 +47,7 @@ public class Deck extends Model {
     public static Deck getDeck(long deckId){
         return new Select()
                 .from(Deck.class)
-                .where("_id=?", deckId)
+                .where("id=?", deckId)
                 .executeSingle();
     }
     /***

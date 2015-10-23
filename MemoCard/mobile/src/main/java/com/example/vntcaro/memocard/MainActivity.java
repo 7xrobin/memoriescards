@@ -99,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements
         return super.onOptionsItemSelected(item);
     }
     /**In case of save button pressed in AddDeckFragment**/
+
     @Override
     public void onDialogPositiveClick(Deck deck) {
         int endPos = mAdapter.getItemCount();
