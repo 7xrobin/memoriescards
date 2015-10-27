@@ -12,44 +12,53 @@ import com.example.vntcaro.memocard.R;
 import java.util.List;
 
 /**
- * Created by vntcaro on 23/10/2015.
+ * Created by vntcaro on 08/10/2015.
  */
+public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardsViewHolder> {
+    private List<Card> mCardlist;
 
-public class CardAdapter  extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
-    public List<Card> mListCards;
-
-    /**Constructor of DeckAdapter**/
+    /**Constructor of CardAdapter**/
     public CardAdapter (List<Card> list ){
-        mListCards = list;
+        mCardlist = list;
     }
 
+    /**This function its used when The RecycleView create a new Holder
+     * so this function link the layout whit the holder
+     * **/
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CardsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.cards_list_view,parent, false);
-        return new ViewHolder(itemView);
+        return new CardsViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        Card itemCard = mListCards.get(position);
+    public void onBindViewHolder(CardsViewHolder holder, int position) {
+        Card itemCard = mCardlist.get(position);
         holder.mNameView.setText(itemCard.front);
     }
 
     public long getItemId(int position) {
-        return mListCards.get(position).getId();
+        return mCardlist.get(position).getId();
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mCardlist.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public void addItem(Card data){
+        mCardlist.add(data);
+    }
+
+    public static class CardsViewHolder extends RecyclerView.ViewHolder{
         public TextView mNameView;
 
-        public ViewHolder(View itemView) {
-            super(itemView);
-            mNameView = (TextView) itemView.findViewById(R.id.card_front_list);
+        // Provide a reference to the views for each data item
+        public CardsViewHolder(View v) {
+            super(v);
+            mNameView = (TextView) v.findViewById(R.id.card_front_list);
         }
     }
+
+
 }

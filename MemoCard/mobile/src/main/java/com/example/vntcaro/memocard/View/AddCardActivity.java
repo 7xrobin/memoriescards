@@ -22,14 +22,9 @@ public class AddCardActivity extends AppCompatActivity {
     private EditText mFrontEdit;
     private EditText mBackEdit;
     private EditText mHintEdit;
-//
-//    /**Interface for listener that communicate whit the view deck activity
-//     * when cancel button is pressed,
-//     * **/
-//    public interface NoticeAddCardListener{
-//        void onCancelClick();
-//    }
-//    NoticeAddCardListener mListener;
+
+
+    /** This function it's called when the activity is started and get the mDeck_id from the intent sended by ViewDeckActivity */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +38,7 @@ public class AddCardActivity extends AppCompatActivity {
             }
         }
     }
+
     /**
      * Inicializate the edit fields and Listner
      * **/
@@ -51,15 +47,6 @@ public class AddCardActivity extends AppCompatActivity {
         mFrontEdit =  (EditText) findViewById(R.id.front_description);
         mBackEdit =  (EditText) findViewById(R.id.back_description);
         mHintEdit =  (EditText) findViewById(R.id.hint_description);
-//            try {
-//                // Instantiate the NoticeDialogListener so we can send events to the host
-//                mListener = (NoticeAddCardListener) mDeckAct;
-//            } catch (ClassCastException e) {
-//                // The activity doesn't implement the interface, throw exception
-//                throw new ClassCastException(mDeckAct.toString()
-//                        + " must implement NoticeDialogListener");
-//            }
-
     }
 
     /**This function save a new card with te informations are inserted in the activity, and it is called when he button saved is pressed**/
@@ -71,14 +58,14 @@ public class AddCardActivity extends AppCompatActivity {
             Card card = new Card(mDeck, frontCard, backCard, hintCard);
             card.save();
             clearFields();
+            ViewDeckActivity.onAddCard(card);
             FeedBack.showFeedBack(getApplicationContext(),FeedBack.SAVE_OK);
         }
     }
     /**This function notify the deck view activity that addition of new Cards it was canceled  */
     public void cancelCard(View v){
-//        mListener.onCancelClick();
         Intent returnIntent= new Intent();
-        setResult(1,returnIntent);
+        setResult(RESULT_OK,returnIntent);
         finish();
     }
     /**This function clear all edit fields when a card is saved to provide save another card**/

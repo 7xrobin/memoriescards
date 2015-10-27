@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements
         //Inicializate he list of decks saved in database
         mDeck= (List<Deck>)Deck.getAll();
         //specify a adapter
-        mAdapter =new DeckAdapter(mDeck);
+        mAdapter = new DeckAdapter(mDeck);
         mRecyclerView.setAdapter(mAdapter);
         final Context context = getApplicationContext();
         mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context,new RecyclerItemClickListener.OnItemClickListener(){

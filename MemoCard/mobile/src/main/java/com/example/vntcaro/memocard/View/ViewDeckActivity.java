@@ -25,10 +25,11 @@ public class ViewDeckActivity extends AppCompatActivity  {
     public static int RETURN_ADDCARD ='1';
     private long mDeck_ID;
     private static ImageView mCover;
-    private CardAdapter mAdapter;
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     private List<Card> mListCards;
+    private static CardAdapter mAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +43,7 @@ public class ViewDeckActivity extends AppCompatActivity  {
             }
         }
     }
-    /**This function set the cover of the deck view, title and list of momories cards**/
+    /**This function set the cover of the deck view, title and list of memories cards**/
     private void initComps(){
         mCover= (ImageView) findViewById(R.id.deck_header);
         Drawable myDrawable = ContextCompat.getDrawable(this, R.drawable.japan);
@@ -51,8 +52,9 @@ public class ViewDeckActivity extends AppCompatActivity  {
         mLayoutManager = new GridLayoutManager(this,2);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mListCards = Card.getAll();
-        mAdapter = new CardAdapter(mListCards);
+        mAdapter= new CardAdapter(mListCards);
         mRecyclerView.setAdapter(mAdapter);
+
     }
     /**This function call AddCardActivity when the fab_add_card is pressed**/
     public void addCard(View view){
@@ -60,9 +62,14 @@ public class ViewDeckActivity extends AppCompatActivity  {
         intent.putExtra(MainActivity.DECK_ID, mDeck_ID);
         startActivityForResult(intent, RETURN_ADDCARD);
     }
+    /**This Function it's called by AddCardActivity when a new card it's saved in database**/
+    public static void onAddCard(Card newCard){
+        mAdapter.addItem(newCard);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == RETURN_ADDCARD) {
+        if (requestCode == RESULT_OK) {
             if(resultCode == 1){
                 mAdapter.notifyDataSetChanged();
             }
