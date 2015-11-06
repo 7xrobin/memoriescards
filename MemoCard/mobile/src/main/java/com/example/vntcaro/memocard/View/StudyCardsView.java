@@ -5,9 +5,13 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 
+import com.daimajia.easing.Glider;
+import com.daimajia.easing.Skill;
 import com.example.vntcaro.memocard.Model.Card;
 import com.example.vntcaro.memocard.R;
 import com.example.vntcaro.memocard.View.Fragments.CardViewFragment;
+import com.nineoldandroids.animation.AnimatorSet;
+import com.nineoldandroids.animation.ObjectAnimator;
 
 import java.util.List;
 
@@ -20,6 +24,7 @@ public class StudyCardsView extends FragmentActivity {
     private long mDeck_id=-1;
     private List<Card> mListCards;
     private View mCardContainer;
+    private View mbackContainer;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,10 +63,16 @@ public class StudyCardsView extends FragmentActivity {
     /**This class show the back card when see_back_button is pressed*/
     public void showBackCard(View v){
         if(mCardContainer!=null) {
-            View backContainer=mCardContainer.findViewById(R.id.back_card_study);
-            backContainer.animate().translationY(-100);
-            backContainer.setVisibility(View.VISIBLE);
-            backContainer.animate().translationY(100);
+            View mbackContainer = mCardContainer.findViewById(R.id.back_container);
+            View showButton = mCardContainer.findViewById(R.id.see_back_button);
+            showButton.setVisibility(View.INVISIBLE);
+            AnimatorSet set = new AnimatorSet();
+            set.playTogether(
+                    Glider.glide(Skill.QuadEaseOut, 3000, ObjectAnimator.ofFloat(mbackContainer, "translationY", -mCardContainer.getHeight(), mCardContainer.getHeight()))
+            );
+            mbackContainer.setVisibility(View.VISIBLE);
+            set.setDuration(3000);
+            set.start();
         }
     }
 }
