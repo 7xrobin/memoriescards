@@ -43,6 +43,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.vntcaro.memocard.View.ViewDeckActivity" />
         </activity>
+        <activity
+            android:name=".View.StudyCardsView"
+            android:parentActivityName=".View.ViewDeckActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.vntcaro.memocard.View.ViewDeckActivity" />
+        </activity>
     </application>
 
 </manifest>

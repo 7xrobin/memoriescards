@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.vntcaro.memocard.Model.Card;
 import com.example.vntcaro.memocard.Model.Deck;
 import com.example.vntcaro.memocard.R;
 
@@ -34,6 +35,7 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> {
         Deck itemDeck = mDecklist.get(position);
         holder.mNameView.setText(itemDeck.name);
         holder.mDescriptionView.setText(itemDeck.description);
+        holder.mCountCards.setText(Card.getAll(itemDeck.getId()).size()+" cards");
     }
 
 //    @Override
@@ -53,6 +55,7 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> {
     public static class ViewHolder extends RecyclerView.ViewHolder{
         public TextView mNameView;
         public TextView mDescriptionView;
+        public TextView mCountCards;
         private ImageView mImage;
 
         // Provide a reference to the views for each data item
@@ -61,6 +64,7 @@ public class DeckAdapter extends RecyclerView.Adapter<DeckAdapter.ViewHolder> {
             mImage = (ImageView) v.findViewById(R.id.deck_image);
             mNameView = (TextView) v.findViewById(R.id.deck_title);
             mDescriptionView = (TextView) v.findViewById(R.id.deck_description);
+            mCountCards = (TextView) v.findViewById(R.id.count_cards);
         }
     }
 

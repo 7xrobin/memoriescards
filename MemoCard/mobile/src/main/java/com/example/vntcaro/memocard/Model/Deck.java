@@ -20,8 +20,7 @@ public class Deck extends Model {
     /**
      * Id feild it's handle by Active Library
      * **/
-//    @Column(name = "remote_id", unique = true, onUniqueConflict = Column.ConflictAction.REPLACE)
-//    public long deckId;
+
     @Column(name="Name")
     public String name;
     @Column(name="Description")

@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements
         AddDeckFragmentDiolog.NoticeDialogListener{
 
     public static final String DECK_ID = "com.exemple.vntcaro.memocard.DECK_ID";
+    private static final int RETURN_VIEWDECK = 1;
     private boolean mResolvingError = false;
     private static final String TAG = "MAINACTIVITY";
     private RecyclerView mRecyclerView;
@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements
     private RecyclerView.LayoutManager mLayoutManager;
     public List<Deck> mDeck;
     public static final int REQUEST_ADD_DECK = 10;
+    private int actualPositionDeck =-1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements
         initComps();
     }
 
+    /**This  funstion inicializate RecycleView and his components, furthermore add  TouchListem for Recycleview*/
     public void initComps(){
         mRecyclerView = (RecyclerView) findViewById(R.id.list_decks_view);
         mRecyclerView.setHasFixedSize(true);
@@ -77,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements
         AddDeckFragmentDiolog newDialog = new AddDeckFragmentDiolog();
         newDialog.show(getFragmentManager(), "Add Deck Dialog");
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -98,20 +101,32 @@ public class MainActivity extends AppCompatActivity implements
 
         return super.onOptionsItemSelected(item);
     }
-    /**In case of save button pressed in AddDeckFragment**/
 
+    /**In case of save button pressed in AddDeckFragment**/
     @Override
     public void onDialogPositiveClick(Deck deck) {
         int endPos = mAdapter.getItemCount();
         mAdapter.addItem(deck);
         mAdapter.notifyItemInserted(endPos);
     }
-    /**Class to call a activity of a deck that was clicked**/
+    /**Class to call a activity view of a deck that was clicked**/
     public void viewDeck(int position){
         Intent intent = new Intent(this, ViewDeckActivity.class);
-        long deckId= mAdapter.getItemId(position);
-        intent.putExtra(DECK_ID, deckId );
-        Log.v(TAG, String.valueOf(deckId));
-        startActivity(intent);
+        actualPositionDeck= position;
+        long deckId = mAdapter.getItemId(position);
+        intent.putExtra(DECK_ID, deckId);
+        startActivityForResult(intent, RETURN_VIEWDECK);
     }
+
+    /**This function update the the number of card of a deck after ViewDeckActivity was closed*/
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == RETURN_VIEWDECK) {
+            if (resultCode == RESULT_OK){
+                mAdapter.notifyItemChanged(actualPositionDeck);
+                actualPositionDeck=-1;
+            }
+        }
+    }
+
 }

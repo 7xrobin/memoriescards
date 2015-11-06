@@ -39,6 +39,10 @@ public class AddCardActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onStop(){
+        super.onStop();
+    }
     /**
      * Inicializate the edit fields and Listner
      * **/

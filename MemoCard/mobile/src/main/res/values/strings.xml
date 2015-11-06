@@ -14,4 +14,5 @@
     <string name="front_error">Você precisa inserir a frente do Cartão</string>
     <string name="back_error">Você precisa inserir o verso do Cartão</string>
     <string name="save_card_ok">Novo Cartão adicionado com Sucesso</string>
+    <string name="study_button">Estudar</string>>
 </resources>

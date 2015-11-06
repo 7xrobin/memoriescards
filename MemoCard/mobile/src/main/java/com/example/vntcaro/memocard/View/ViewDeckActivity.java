@@ -22,6 +22,7 @@ import java.util.List;
  */
 public class ViewDeckActivity extends AppCompatActivity  {
     private static final String TAG ="VIEWDECK" ;
+    private static final String RETURN_VIEWDECK = "NUMBERCARDS";
     public static int RETURN_ADDCARD ='1';
     private long mDeck_ID;
     private static ImageView mCover;
@@ -33,7 +34,7 @@ public class ViewDeckActivity extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.deck_activity);
+        setContentView(R.layout.deck_view);
         Intent intent= getIntent();
         Bundle bundle = intent.getExtras();
         if(bundle!=null) {
@@ -43,6 +44,18 @@ public class ViewDeckActivity extends AppCompatActivity  {
             }
         }
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    /**This function deliver back to MainActivity the number of cards in the deck*/
+    @Override
+    protected void onStop(){
+        super.onStop();
+    }
+
     /**This function set the cover of the deck view, title and list of memories cards**/
     private void initComps(){
         mCover= (ImageView) findViewById(R.id.deck_header);
@@ -51,7 +64,7 @@ public class ViewDeckActivity extends AppCompatActivity  {
         mRecyclerView = (RecyclerView) findViewById(R.id.list_cards_view);
         mLayoutManager = new GridLayoutManager(this,2);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mListCards = Card.getAll();
+        mListCards = Card.getAll(mDeck_ID);
         mAdapter= new CardAdapter(mListCards);
         mRecyclerView.setAdapter(mAdapter);
 
@@ -67,11 +80,20 @@ public class ViewDeckActivity extends AppCompatActivity  {
         mAdapter.addItem(newCard);
     }
 
+    /***/
+    public void startStudy(View v){
+        Intent intent = new Intent(this, StudyCardsView.class);
+        intent.putExtra("DECK_ID", mDeck_ID);
+        startActivity(intent);
+    }
+    /**This function update the Recycle view after AddCardActivity was closed*/
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == RESULT_OK) {
             if(resultCode == 1){
                 mAdapter.notifyDataSetChanged();
+                Intent returnIntent = new Intent();
+                setResult(RESULT_OK, returnIntent);
             }
         }
 
