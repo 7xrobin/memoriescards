@@ -4,14 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
-import com.daimajia.easing.Glider;
-import com.daimajia.easing.Skill;
 import com.example.vntcaro.memocard.Model.Card;
 import com.example.vntcaro.memocard.R;
 import com.example.vntcaro.memocard.View.Fragments.CardViewFragment;
-import com.nineoldandroids.animation.AnimatorSet;
-import com.nineoldandroids.animation.ObjectAnimator;
 
 import java.util.List;
 
@@ -48,14 +46,12 @@ public class StudyCardsView extends FragmentActivity {
         /**Check that the activity is using the layout  */
         if(mCardContainer!=null){
             CardViewFragment FrontCardFragment = new CardViewFragment();
-            CardViewFragment BackCardFragment = new CardViewFragment();
             Bundle bunCard = new Bundle();
-            bunCard.putString("FRONT",mListCards.get(0).front);  //Test 1
+            bunCard.putString("FRONT", mListCards.get(0).front);  //Test 1
             FrontCardFragment.setArguments(bunCard);
             bunCard.putString("BACK", mListCards.get(0).back);
-            BackCardFragment.setArguments(bunCard);
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, FrontCardFragment).commit();
+                    .replace(R.id.fragment_container, FrontCardFragment).commit();
 
 
         }
@@ -63,16 +59,32 @@ public class StudyCardsView extends FragmentActivity {
     /**This class show the back card when see_back_button is pressed*/
     public void showBackCard(View v){
         if(mCardContainer!=null) {
-            View mbackContainer = mCardContainer.findViewById(R.id.back_container);
-            View showButton = mCardContainer.findViewById(R.id.see_back_button);
-            showButton.setVisibility(View.INVISIBLE);
-            AnimatorSet set = new AnimatorSet();
-            set.playTogether(
-                    Glider.glide(Skill.QuadEaseOut, 3000, ObjectAnimator.ofFloat(mbackContainer, "translationY", -mCardContainer.getHeight(), mCardContainer.getHeight()))
-            );
-            mbackContainer.setVisibility(View.VISIBLE);
-            set.setDuration(3000);
-            set.start();
+            final View mbackContainer = mCardContainer.findViewById(R.id.back_container);
+            mbackContainer.setTranslationY(-mbackContainer.getHeight());
+
+//            mbackContainer.animate().setDuration(1000)
+//                    .translationY(mbackContainer.getHeight())
+//                    .setInterpolator(new AccelerateDecelerateInterpolator());
+
+           Animation animFadIn = AnimationUtils.loadAnimation(getApplicationContext(),
+                   R.anim.fad_in_slide_down);
+            animFadIn.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                    mbackContainer.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+            mbackContainer.startAnimation(animFadIn);
         }
     }
 }

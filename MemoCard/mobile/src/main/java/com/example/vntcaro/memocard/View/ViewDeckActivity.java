@@ -80,7 +80,7 @@ public class ViewDeckActivity extends AppCompatActivity  {
         mAdapter.addItem(newCard);
     }
 
-    /***/
+    /**This Function it's called when  studyButton it's pressed and call cardsView**/
     public void startStudy(View v){
         Intent intent = new Intent(this, StudyCardsView.class);
         intent.putExtra("DECK_ID", mDeck_ID);
