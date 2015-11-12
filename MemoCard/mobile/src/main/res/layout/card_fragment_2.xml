@@ -2,47 +2,34 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
     android:orientation="vertical"
+    android:layout_gravity="center"
     android:padding="10dp">
 
     <TextView
         android:id="@+id/front_card_study"
+        android:text="Qualquer texto para teste"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:padding="10dp"
-        android:text="Qualquer texto para teste" />
+        android:padding="10dp"/>
 
-    <FrameLayout
+    <ImageButton
+        android:id="@+id/see_back_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
-
-        <ImageButton
-            android:id="@+id/see_back_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:onClick="showBackCard"
-            android:src="@drawable/see_back" />
-
-        <View
-            android:id="@+id/line_text"
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"/>
-    </FrameLayout>
+        android:layout_gravity="center"
+        android:src="@drawable/see_back"
+       />
 
     <RelativeLayout
+        android:orientation="horizontal"
         android:id="@+id/back_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:background="@android:color/white"
-        android:orientation="horizontal">
+        android:background="@android:color/white">
 
         <TextView
             android:id="@+id/back_card_study"
@@ -51,7 +38,7 @@
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
-            android:text="Qualquer texto para teste" />
+            android:text="Qualquer texto para teste"/>
     </RelativeLayout>
 
 

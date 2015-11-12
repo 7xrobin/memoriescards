@@ -7,7 +7,6 @@ package com.example.vntcaro.memocard.View.Fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.transition.Scene;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,18 +23,22 @@ public class CardViewFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.card_fragment, null);
-        mFrontText= (TextView) root.findViewById(R.id.front_card_study);
-        mBackText= (TextView) root.findViewById(R.id.back_card_study);
-        mBackContainer= root.findViewById(R.id.back_container);
-        mBackContainer.setVisibility(View.GONE);
-        Scene scene2 =
+        initComps(root);
         Bundle argumets = getArguments();
         if(argumets!=null){
             mFrontText.setText(argumets.getString("FRONT"));
             mBackText.setText(argumets.getString("BACK"));
         }
-
         return root;
     }
 
+    /**Inicializate the field of the fragment**/
+    public void initComps(View root){
+        mFrontText= (TextView) root.findViewById(R.id.front_card_study);
+        mBackText= (TextView) root.findViewById(R.id.back_card_study);
+        mBackContainer= root.findViewById(R.id.back_container);
+        View line = root.findViewById(R.id.line_text);
+        mBackContainer.setVisibility(View.GONE);
+        line.setVisibility(View.GONE);
+    }
 }

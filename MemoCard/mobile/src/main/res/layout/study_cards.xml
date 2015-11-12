@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background= "@color/cardview_dark_background"
@@ -12,11 +13,19 @@
         android:minWidth="400dp"
         android:padding="10dp"
         android:layout_margin="20dp"
+        app:layout_anchorGravity="center"
+        android:layout_centerVertical="true"
         android:layout_gravity="center_horizontal|center_vertical"
-        android:layout_centerInParent="true"
-        android:background="@android:color/white"
-        android:elevation="5dp">
+        android:background="@android:color/white">
 
     </FrameLayout>
-
+    <Button
+        android:id="@+id/ok_response"
+        android:layout_marginTop="-50dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/ok_shape"
+        android:drawableEnd="@drawable/ok_response"
+        android:layout_below="@+id/fragment_container"
+        android:layout_alignEnd="@+id/fragment_container"/>
 </RelativeLayout>

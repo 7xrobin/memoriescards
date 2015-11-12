@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageButton;
 
 import com.example.vntcaro.memocard.Model.Card;
 import com.example.vntcaro.memocard.R;
@@ -60,23 +62,30 @@ public class StudyCardsView extends FragmentActivity {
     public void showBackCard(View v){
         if(mCardContainer!=null) {
             final View mbackContainer = mCardContainer.findViewById(R.id.back_container);
-            mbackContainer.setTranslationY(-mbackContainer.getHeight());
+            final ImageButton showButton = (ImageButton) mCardContainer.findViewById(R.id.see_back_button);
+            final View line = mCardContainer.findViewById(R.id.line_text);
 
-//            mbackContainer.animate().setDuration(1000)
-//                    .translationY(mbackContainer.getHeight())
-//                    .setInterpolator(new AccelerateDecelerateInterpolator());
 
-           Animation animFadIn = AnimationUtils.loadAnimation(getApplicationContext(),
+            Animation animFadIn = AnimationUtils.loadAnimation(getApplicationContext(),
                    R.anim.fad_in_slide_down);
             animFadIn.setAnimationListener(new Animation.AnimationListener() {
                 @Override
                 public void onAnimationStart(Animation animation) {
+                    int prevHeight = mbackContainer.getHeight();
+                    mbackContainer.setTranslationY(-prevHeight);
                     mbackContainer.setVisibility(View.VISIBLE);
+                    mbackContainer.animate().translationY(prevHeight)
+                            .setDuration(5000)
+                            .setInterpolator(new AccelerateDecelerateInterpolator())
+                            .start();
                 }
 
                 @Override
                 public void onAnimationEnd(Animation animation) {
-
+                    showButton.animate().alpha(0)
+                            .setDuration(500)
+                            .start();
+                    line.setVisibility(View.VISIBLE);
                 }
 
                 @Override
@@ -87,4 +96,5 @@ public class StudyCardsView extends FragmentActivity {
             mbackContainer.startAnimation(animFadIn);
         }
     }
+
 }
