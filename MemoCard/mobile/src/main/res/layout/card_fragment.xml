@@ -11,28 +11,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="10dp"
         android:padding="10dp"
-        android:text="Qualquer texto para teste" />
+        android:text="Texto para testar a testa" />
 
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp">
 
         <ImageButton
             android:id="@+id/see_back_button"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:onClick="showBackCard"
             android:src="@drawable/see_back" />
-
-        <View
-            android:id="@+id/line_text"
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"/>
     </FrameLayout>
 
     <RelativeLayout
@@ -42,7 +38,8 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:background="@android:color/white"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/back_card_study"
@@ -50,8 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:text="Qualquer texto para teste" />
+            android:layout_marginTop="5dp" />
     </RelativeLayout>
 
 

@@ -18,7 +18,6 @@ import com.example.vntcaro.memocard.R;
 public class CardViewFragment extends Fragment{
     private TextView mFrontText;
     private TextView mBackText;
-    private View mBackContainer;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -36,9 +35,5 @@ public class CardViewFragment extends Fragment{
     public void initComps(View root){
         mFrontText= (TextView) root.findViewById(R.id.front_card_study);
         mBackText= (TextView) root.findViewById(R.id.back_card_study);
-        mBackContainer= root.findViewById(R.id.back_container);
-        View line = root.findViewById(R.id.line_text);
-        mBackContainer.setVisibility(View.GONE);
-        line.setVisibility(View.GONE);
     }
 }
