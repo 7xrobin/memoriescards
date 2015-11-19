@@ -81,7 +81,9 @@ public class StudyCardsView extends FragmentActivity {
             showResponseButtons();
     }
 
-    /****/
+    /**This class animate the show of buttons for respond if the user hit the card;
+     * This function its called by showBackCard()
+     * Now it's using animate but it may be better to switch to transition scenes too**/
     public void showResponseButtons(){
         if(mCardContainer!=null) {
             mBtnOk.setAlpha(0f);
