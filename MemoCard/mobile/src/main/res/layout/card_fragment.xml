@@ -12,8 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:padding="10dp"
-        android:text="Texto para testar a testa" />
+        android:padding="10dp" />
 
     <FrameLayout
         android:layout_width="wrap_content"

@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.example.vntcaro.memocard.Model.Card;
 import com.example.vntcaro.memocard.R;
-import com.example.vntcaro.memocard.View.Fragments.CardViewFragment;
+import com.example.vntcaro.memocard.View.Fragment.CardViewFragment;
 
 import java.util.List;
 
@@ -29,6 +29,7 @@ public class StudyCardsView extends FragmentActivity {
     private ViewGroup mCardContainer;
     private  ImageButton mBtnOk;
     private  ImageButton mBtnErr;
+    private  int mCardNumber =0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,7 @@ public class StudyCardsView extends FragmentActivity {
         setContentView(R.layout.study_cards);
         Intent intent= getIntent();
         initComps(intent);
-        showCardsFragment();
+        showCardFragment();
     }
     private void initComps(Intent intent){
         Bundle bund= intent.getExtras();
@@ -50,14 +51,12 @@ public class StudyCardsView extends FragmentActivity {
     }
 
     /**This function sets the fragments to show the cards**/
-    private void showCardsFragment(){
-        /**Check that the activity is using the layout  */
-        if(mCardContainer!=null){
+    private void showCardFragment(){
+        if(mCardNumber <mListCards.size()) {
             CardViewFragment CardFragment = new CardViewFragment();
             Bundle bunCard = new Bundle();
-            bunCard.putString("FRONT", mListCards.get(0).front);  //Teste para mostrar um card
+            bunCard.putString("FRONT", mListCards.get(mCardNumber).front);
             CardFragment.setArguments(bunCard);
-            bunCard.putString("BACK", mListCards.get(0).back);
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, CardFragment).commit();
         }
@@ -71,8 +70,8 @@ public class StudyCardsView extends FragmentActivity {
                 public void run() {
                     TextView frontText = (TextView) mCardContainer.findViewById(R.id.front_card_study);
                     TextView backText = (TextView) mCardContainer.findViewById(R.id.back_card_study);
-                    frontText.setText(mListCards.get(0).front);
-                    backText.setText(mListCards.get(0).back);
+                    frontText.setText(mListCards.get(mCardNumber).front);
+                    backText.setText(mListCards.get(mCardNumber).back);
                 }
             });
             Transition showTransition = TransitionInflater.from(this)
@@ -84,7 +83,7 @@ public class StudyCardsView extends FragmentActivity {
     /**This class animate the show of buttons for respond if the user hit the card;
      * This function its called by showBackCard()
      * Now it's using animate but it may be better to switch to transition scenes too**/
-    public void showResponseButtons(){
+    private void showResponseButtons(){
         if(mCardContainer!=null) {
             mBtnOk.setAlpha(0f);
             mBtnOk.setVisibility(View.VISIBLE);
@@ -97,5 +96,34 @@ public class StudyCardsView extends FragmentActivity {
                     .setDuration(500)
                     .start();
         }
+    }
+
+    /**This function clean the fragment after a button of a response was pressed
+     */
+    private void resetFragment(){
+        Scene scene1= Scene.getSceneForLayout(mCardContainer, R.layout.card_fragment, this);
+        mBtnOk.setVisibility(View.INVISIBLE);
+        mBtnErr.setVisibility(View.INVISIBLE);
+        Transition showTransition = TransitionInflater.from(this)
+                .inflateTransition(R.transition.trans_slide_up);
+        TransitionManager.go(scene1, showTransition);
+    }
+
+    /**This function clean the fragment after error response button was pressed
+     * Clean the fragment and change to another with next Card, by incrementing CardNumber
+     */
+    public void onErroClick(View v){
+        mCardNumber++;
+        resetFragment();
+        showCardFragment();
+    }
+    
+    /**This function clean the fragment after ok response button was pressed
+     * Clean the fragment and change to another with next Card, by incrementing CardNumber
+     */
+    public void onOkClick(View v){
+        mCardNumber++;
+        resetFragment();
+        showCardFragment();
     }
 }

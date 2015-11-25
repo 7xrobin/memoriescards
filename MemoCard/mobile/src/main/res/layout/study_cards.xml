@@ -28,7 +28,8 @@
         android:src="@drawable/err_response"
         android:layout_below="@+id/fragment_container"
         android:layout_alignLeft="@+id/fragment_container"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:onClick="onErroClick"/>
     <ImageButton
         android:id="@+id/ok_response"
         android:layout_marginTop="-50dp"
@@ -38,5 +39,6 @@
         android:background="@drawable/buttn_shap_ok"
         android:layout_below="@+id/fragment_container"
         android:layout_alignEnd="@+id/fragment_container"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:onClick="onOkClick"/>
 </RelativeLayout>
