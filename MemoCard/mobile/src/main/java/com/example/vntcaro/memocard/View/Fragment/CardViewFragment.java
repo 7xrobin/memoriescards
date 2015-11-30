@@ -4,9 +4,10 @@ package com.example.vntcaro.memocard.View.Fragment;
  * Created by vntcaro on 30/10/2015.
  */
 
+
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,7 @@ import android.widget.TextView;
 import com.example.vntcaro.memocard.R;
 
 /**This class defines a Fragmment for a Card and it's used by StudyCardsView**/
-public class CardViewFragment extends Fragment{
+public class CardViewFragment extends Fragment {
     private TextView mFrontText;
     @Nullable
     @Override

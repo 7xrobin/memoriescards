@@ -9,6 +9,8 @@ import android.transition.TransitionInflater;
 import android.transition.TransitionManager;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -18,14 +20,13 @@ import com.example.vntcaro.memocard.View.Fragment.CardViewFragment;
 
 import java.util.List;
 
-/**
- * Created by vntcaro on 30/10/2015.
- */
+/**Created by vntcaro on 30/10/2015.*/
 
 /**This class handle the fragments to show card for study**/
 public class StudyCardsView extends FragmentActivity {
     private long mDeck_id=-1;
     private List<Card> mListCards;
+    private ViewGroup mRootView;
     private ViewGroup mCardContainer;
     private  ImageButton mBtnOk;
     private  ImageButton mBtnErr;
@@ -44,6 +45,7 @@ public class StudyCardsView extends FragmentActivity {
         if(bund!=null){
             mDeck_id=bund.getLong("DECK_ID");
         }
+        mRootView= (ViewGroup)findViewById(R.id.root_layout);
         mListCards= Card.getAll(mDeck_id);
         mCardContainer = (ViewGroup)findViewById(R.id.fragment_container);
         mBtnOk = (ImageButton) findViewById(R.id.ok_response);
@@ -53,13 +55,20 @@ public class StudyCardsView extends FragmentActivity {
     /**This function sets the fragments to show the cards**/
     private void showCardFragment(){
         if(mCardNumber <mListCards.size()) {
+            showContainer();
             CardViewFragment CardFragment = new CardViewFragment();
             Bundle bunCard = new Bundle();
             bunCard.putString("FRONT", mListCards.get(mCardNumber).front);
             CardFragment.setArguments(bunCard);
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, CardFragment).commit();
+            android.support.v4.app.FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.fragment_container, CardFragment).commit();
         }
+    }
+
+    /**This function animate the enter of cardcontainer, it's called by  ShowCardFragment**/
+    private void showContainer(){
+        Animation enterAnim = AnimationUtils.loadAnimation(this, R.anim.enter_slide_down);
+        mCardContainer.startAnimation(enterAnim);
     }
 
     /**This class show the back card when see_back_button is pressed**/
@@ -90,23 +99,43 @@ public class StudyCardsView extends FragmentActivity {
             mBtnOk.animate().alpha(1f)
                     .setDuration(500)
                     .start();
-            mBtnOk.setAlpha(0f);
+            mBtnErr.setAlpha(0f);
             mBtnErr.setVisibility(View.VISIBLE);
-            mBtnOk.animate().alpha(1f)
+            mBtnErr.animate().alpha(1f)
                     .setDuration(500)
                     .start();
         }
     }
-
-    /**This function clean the fragment after a button of a response was pressed
-     */
+    /**This function clean the fragment after a button of a response was pressed */
     private void resetFragment(){
         Scene scene1= Scene.getSceneForLayout(mCardContainer, R.layout.card_fragment, this);
         mBtnOk.setVisibility(View.INVISIBLE);
         mBtnErr.setVisibility(View.INVISIBLE);
+        hideContainer();
         Transition showTransition = TransitionInflater.from(this)
                 .inflateTransition(R.transition.trans_slide_up);
         TransitionManager.go(scene1, showTransition);
+    }
+
+    /**This function animate the exit of cardcontainer, it's called by  resetFragment
+     * in the end of animation call showCardFragment too show a new fragment**/
+    private void hideContainer(){
+        Animation exitAnim = AnimationUtils.loadAnimation(this, R.anim.exit_slide_down);
+        exitAnim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                showCardFragment();
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+        });
+        mCardContainer.startAnimation(exitAnim);
     }
 
     /**This function clean the fragment after error response button was pressed
@@ -115,15 +144,15 @@ public class StudyCardsView extends FragmentActivity {
     public void onErroClick(View v){
         mCardNumber++;
         resetFragment();
-        showCardFragment();
     }
-    
+
     /**This function clean the fragment after ok response button was pressed
      * Clean the fragment and change to another with next Card, by incrementing CardNumber
      */
     public void onOkClick(View v){
         mCardNumber++;
         resetFragment();
-        showCardFragment();
     }
+
+
 }
