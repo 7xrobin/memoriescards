@@ -18,6 +18,8 @@ import com.example.vntcaro.memocard.R;
 /**This class defines a Fragmment for a Card and it's used by StudyCardsView**/
 public class CardViewFragment extends Fragment {
     private TextView mFrontText;
+    private TextView mBackText;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -25,8 +27,16 @@ public class CardViewFragment extends Fragment {
         Bundle argumets = getArguments();
         if(argumets!=null){
             mFrontText= (TextView) root.findViewById(R.id.front_card_study);
+            mBackText= (TextView) root.findViewById(R.id.back_card_study);
             mFrontText.setText(argumets.getString("FRONT"));
+            mBackText.setText(argumets.getString("BACK"));
         }
         return root;
     }
+
+    public void hideField(){
+        mFrontText.setVisibility(View.GONE);
+        mBackText.setVisibility(View.GONE);
+    }
+
 }

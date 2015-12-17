@@ -14,7 +14,8 @@
             android:layout_height="100dp">
 
             <ImageView
-                android:id="@+id/deck_header"
+                android:transitionName="deck_img"
+                android:id="@+id/deck_image_header"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="0.6"

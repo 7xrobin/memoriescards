@@ -24,7 +24,7 @@ public class ViewDeckActivity extends AppCompatActivity  {
     private static final String TAG ="VIEWDECK" ;
     private static final String RETURN_VIEWDECK = "NUMBERCARDS";
     public static int RETURN_ADDCARD ='1';
-    private long mDeck_ID;
+    public static long mDeck_ID;
     private static ImageView mCover;
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -58,7 +58,7 @@ public class ViewDeckActivity extends AppCompatActivity  {
 
     /**This function set the cover of the deck view, title and list of memories cards**/
     private void initComps(){
-        mCover= (ImageView) findViewById(R.id.deck_header);
+        mCover= (ImageView) findViewById(R.id.deck_image_header);
         Drawable myDrawable = ContextCompat.getDrawable(this, R.drawable.japan);
         mCover.setImageDrawable(myDrawable);
         mRecyclerView = (RecyclerView) findViewById(R.id.list_cards_view);
@@ -69,13 +69,13 @@ public class ViewDeckActivity extends AppCompatActivity  {
         mRecyclerView.setAdapter(mAdapter);
 
     }
-    /**This function call AddCardActivity when the fab_add_card is pressed**/
+    /**This function call AddCardDialog when the fab_add_card is pressed**/
     public void addCard(View view){
-        Intent intent = new Intent(this, AddCardActivity.class);
-        intent.putExtra(MainActivity.DECK_ID, mDeck_ID);
-        startActivityForResult(intent, RETURN_ADDCARD);
+        AddCardDialog newDialog = new AddCardDialog();
+        newDialog.show(getFragmentManager(), "Add Card Dialog");
     }
-    /**This Function it's called by AddCardActivity when a new card it's saved in database**/
+
+    /**This Function it's called by AddCardDialog when a new card it's saved in database**/
     public static void onAddCard(Card newCard){
         mAdapter.addItem(newCard);
     }
@@ -86,16 +86,5 @@ public class ViewDeckActivity extends AppCompatActivity  {
         intent.putExtra("DECK_ID", mDeck_ID);
         startActivity(intent);
     }
-    /**This function update the Recycle view after AddCardActivity was closed*/
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == RESULT_OK) {
-            if(resultCode == 1){
-                mAdapter.notifyDataSetChanged();
-                Intent returnIntent = new Intent();
-                setResult(RESULT_OK, returnIntent);
-            }
-        }
 
-    }
 }

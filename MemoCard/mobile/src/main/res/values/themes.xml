@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="MimoTheme" parent="Base.Theme.AppCompat.Light">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/mPrimary</item>
+        <item name="android:colorPrimaryDark">@color/mPrimaryDark</item>
+
+        <!-- Allow Activity transition-->
+        <item name="android:windowContentTransitions">true</item>
+
+        <!-- specify shared element transitions -->
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_image_transform</item>
+
+    </style>
+    <style name="EditTextTheme">
+        <item name="colorControlNormal">#c5c5c5</item>
+        <item name="colorControlHighlight">#e65100</item>
+    </style>
+</resources>

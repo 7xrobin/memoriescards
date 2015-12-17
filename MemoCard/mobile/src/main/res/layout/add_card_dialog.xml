@@ -2,23 +2,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/header_add_deck"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:scaleType="center"
+        android:background="#FFFFBB33" />
     <EditText
-        android:id="@+id/add_deck_title"
+        android:id="@+id/front_description"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:hint="@string/front_insert"
+        android:theme="@style/EditTextTheme"
         />
     <EditText
-        android:id="@+id/add_deck_description"
+        android:id="@+id/back_description"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:hint="@string/versu_insert"
         />
-    <Button
-        android:id="@+id/add_deck"
+    <EditText
+        android:id="@+id/hint_description"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:hint="@string/save"
-        android:onClick="saveDeck"
+        android:hint="@string/hint_insert"
         />
+
 </LinearLayout>

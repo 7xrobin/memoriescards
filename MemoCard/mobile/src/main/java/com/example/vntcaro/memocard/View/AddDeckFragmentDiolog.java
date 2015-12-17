@@ -58,10 +58,10 @@ public class AddDeckFragmentDiolog extends DialogFragment {
             }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dismiss();
-                    }
-                });
+            public void onClick(DialogInterface dialog, int id) {
+                dismiss();
+            }
+        });
         // Create the AlertDialog object and return it
         return builder.create();
     }
@@ -69,7 +69,7 @@ public class AddDeckFragmentDiolog extends DialogFragment {
      * inicializate components**/
     private void initComps(){
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        mDialogView= inflater.inflate(R.layout.dialog_add_deck, null);
+        mDialogView= inflater.inflate(R.layout.add_deck_dialog, null);
         mNameEdit =  (EditText) mDialogView.findViewById(R.id.add_deck_title);
         mDescriptionEdit=  (EditText)mDialogView.findViewById(R.id.add_deck_description);
     }
