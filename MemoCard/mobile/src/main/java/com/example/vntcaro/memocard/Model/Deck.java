@@ -50,7 +50,7 @@ public class Deck extends Model {
                 .executeSingle();
     }
     /***
-     * Get all instances of deck in data base
+     * Get all instances of decks in data base
      * */
     public static List<Deck> getAll(){
         return new Select()

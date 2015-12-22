@@ -1,8 +1,10 @@
 package com.example.vntcaro.memocard.View;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -50,10 +52,26 @@ public class ViewDeckActivity extends AppCompatActivity  {
         super.onPause();
     }
 
-    /**This function deliver back to MainActivity the number of cards in the deck*/
+    /**This function save in shared preferences the actual deck_id*/
     @Override
     protected void onStop(){
         super.onStop();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        prefs.edit().putString("deck_id", String.valueOf(mDeck_ID)).commit();
+    }
+
+    /**
+     * This function guets the deck_id when is start, it's used when back from StudyCards Activity
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String value = prefs.getString("deck_id", "null");
+        if(!value.equals("null")){
+            mDeck_ID= Long.valueOf(value);
+            initComps();
+        }
     }
 
     /**This function set the cover of the deck view, title and list of memories cards**/
@@ -84,7 +102,7 @@ public class ViewDeckActivity extends AppCompatActivity  {
     public void startStudy(View v){
         Intent intent = new Intent(this, StudyCardsView.class);
         intent.putExtra("DECK_ID", mDeck_ID);
-        startActivity(intent);
+        startActivityForResult(intent, 1);
     }
 
 }

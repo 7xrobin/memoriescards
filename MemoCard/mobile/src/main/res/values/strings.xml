@@ -15,5 +15,11 @@
     <string name="back_error">Você precisa inserir o verso do Cartão</string>
     <string name="save_card_ok">Novo Cartão adicionado com Sucesso</string>
     <string name="study_button">Estudar</string>
-    <string name="front_trans">front_card_shared</string>>
+    <string name="front_trans">front_card_shared</string>
+    <string name="review_errors">Rever Erros</string>
+    <string name="review_all">Rever Todos</string>
+    <string name="right_desc">Acertos</string>
+    <string name="rong_desc">Erros</string>
+    <string name="results_header">Resultados</string>
+    <string name="ok">ok</string>>
 </resources>

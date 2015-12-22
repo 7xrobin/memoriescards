@@ -2,7 +2,7 @@ package com.example.vntcaro.memocard.View;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -18,7 +18,7 @@ import java.util.List;
 /**Created by vntcaro on 30/10/2015.*/
 
 /**This class handle the fragments to show card for study**/
-public class StudyCardsView extends FragmentActivity {
+public class StudyCardsView extends AppCompatActivity {
     private long mDeck_id=-1;
     private  List<Card> mListCards;
     private  ViewGroup mCardContainer;
@@ -26,6 +26,8 @@ public class StudyCardsView extends FragmentActivity {
     private  ImageButton mBtnOk;
     private  ImageButton mBtnErr;
     private  int mCardNumber =0;
+    public static int counters[]; //Counters, number of cards in the deck, number of righ answears,and rongs;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,8 @@ public class StudyCardsView extends FragmentActivity {
         mCardContainer = (ViewGroup)findViewById(R.id.fragment_container);
         mBtnOk = (ImageButton) findViewById(R.id.ok_response);
         mBtnErr = (ImageButton) findViewById(R.id.error_response);
+        counters= new int[3];
+        counters[0]= mListCards.size();
     }
 
     /**This function sets the fragments to show the cards**/
@@ -95,6 +99,7 @@ public class StudyCardsView extends FragmentActivity {
                     .setDuration(500)
                     .start();
         }
+        //Circular reveal
 //        int cx = (mBtnOk.getLeft() + mBtnOk.getRight()) / 2; //center x
 //        int cy = (mBtnOk.getTop() + mBtnOk.getBottom()) / 2; //center y
 //        int finalRadius = Math.max(mBtnOk.getWidth(), mBtnOk.getHeight()); //max radius
@@ -143,6 +148,11 @@ public class StudyCardsView extends FragmentActivity {
     public void onErroClick(View v){
         mCardNumber++;
         resetFragment();
+        counters[0]--;
+        counters[2]++;
+        if(counters[0]<=0){
+            callResult();
+        }
     }
 
     /**This function clean the fragment after ok response button was pressed
@@ -151,7 +161,19 @@ public class StudyCardsView extends FragmentActivity {
     public void onOkClick(View v){
         mCardNumber++;
         resetFragment();
+        counters[0]--;
+        counters[1]++;
+        if(counters[0]<=0){
+            callResult();
+        }
     }
 
+    /**
+     * This function create a new Fragment of results
+     */
+    private void callResult(){
+        ResultsFragment newResult= new ResultsFragment();
+        newResult.show(getFragmentManager(), "Show Result");
+    }
 
 }
