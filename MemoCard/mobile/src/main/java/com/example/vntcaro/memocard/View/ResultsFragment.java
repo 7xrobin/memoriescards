@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,7 +36,9 @@ public class ResultsFragment extends DialogFragment {
         builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                Intent intent = new Intent(getActivity().getApplicationContext(), ViewDeckActivity.class);
+                intent.putExtra("DECK_ID", StudyCardsView.mDeck_id);
+                startActivity(intent);
             }
         });
         return builder.create();
@@ -53,5 +56,27 @@ public class ResultsFragment extends DialogFragment {
         mRongNumb = (TextView) mDialogView.findViewById(R.id.rong_number);
         mRightNumb.setText(String.valueOf(StudyCardsView.counters[1]));
         mRongNumb.setText(String.valueOf(StudyCardsView.counters[2]));
+        mAllButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity().getApplicationContext(), StudyCardsView.class);
+                intent.putExtra("ISALLREVIEW", 1);
+                startActivity(intent);
+            }
+        });
+        if(StudyCardsView.counters[2]>0) { //Test if has any rong answear, desable err_rev_btn button if not
+            mErrButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getActivity().getApplicationContext(), StudyCardsView.class);
+                    intent.putExtra("ISRONGREVIEW", 1);
+                    startActivity(intent);
+                }
+            });
+        }
+        else{
+            mErrButton.setEnabled(false);
+        }
+
     }
 }

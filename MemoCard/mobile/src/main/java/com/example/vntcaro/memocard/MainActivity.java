@@ -13,15 +13,12 @@ package com.example.vntcaro.memocard;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.example.vntcaro.memocard.Model.Deck;
 import com.example.vntcaro.memocard.Utils.RecyclerItemClickListener;
@@ -150,12 +147,12 @@ public class MainActivity extends AppCompatActivity implements
         long deckId = mAdapter.getItemId(position);
         intent.putExtra(DECK_ID, deckId);
 //        For shared transition
-        ImageView deckImg= (ImageView)vi.findViewById(R.id.deck_image);
-        ActivityOptionsCompat options = ActivityOptionsCompat.
-                makeSceneTransitionAnimation(this, deckImg, "deck_img");
-        ActivityCompat.startActivity(this, intent, options.toBundle());
+//        ImageView deckImg= (ImageView)vi.findViewById(R.id.deck_image);
+//        ActivityOptionsCompat options = ActivityOptionsCompat.
+//                makeSceneTransitionAnimation(this, deckImg, "deck_img");
+//        ActivityCompat.startActivity(this, intent, options.toBundle());
 
-//        startActivityForResult(intent, RETURN_VIEWDECK);
+        startActivityForResult(intent, RETURN_VIEWDECK);
 
     }
 

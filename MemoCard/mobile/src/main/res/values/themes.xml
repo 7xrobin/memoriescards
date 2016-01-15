@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="MimoTheme" parent="Base.Theme.AppCompat.Light">
-        <!-- Customize your theme here. -->
+
+    <style name="MimoTheme" parent="Theme.AppCompat.Light">
+        <!-- Base colours. -->
         <item name="colorPrimary">@color/mPrimary</item>
         <item name="android:colorPrimaryDark">@color/mPrimaryDark</item>
+
+
 
         <!-- Allow Activity transition-->
         <item name="android:windowContentTransitions">true</item>
@@ -11,10 +14,29 @@
         <!-- specify shared element transitions -->
         <!--<item name="android:windowSharedElementEnterTransition">-->
             <!--@transition/change_image_transform</item>-->
-
     </style>
+
+    <style name="MimoTheme.Button" parent="Base.Widget.AppCompat.Button">
+        <item name="android:colorButtonNormal">@color/mButtonNormal</item>
+        <item name="android:colorAccent">#ffecb3</item>
+    </style>
+
+    <!-- Edit text preferences -->
     <style name="EditTextTheme">
         <item name="colorControlNormal">#c5c5c5</item>
         <item name="colorControlHighlight">#e65100</item>
     </style>
+    <!-- Text Header Preferences-->
+    <style name="TextHeaderStyle">
+        <item name="android:gravity">center</item>
+        <item name="android:background">@color/mPrimaryDark</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">18dp</item>
+    </style>
+    <!-- Flat Buttons-->
+    <style name="FlatButtonstyle">
+        <item name="android:textColor">@android:color/holo_blue_dark</item>
+        <item name="android:layout_margin">5dp</item>
+    </style>
+
 </resources>

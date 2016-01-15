@@ -9,6 +9,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -25,7 +26,8 @@ import java.util.List;
 public class ViewDeckActivity extends AppCompatActivity  {
     private static final String TAG ="VIEWDECK" ;
     private static final String RETURN_VIEWDECK = "NUMBERCARDS";
-    public static int RETURN_ADDCARD ='1';
+    private static final int START_STUDY = 1;
+    private boolean mIsStart= false;
     public static long mDeck_ID;
     private static ImageView mCover;
     private RecyclerView mRecyclerView;
@@ -43,6 +45,7 @@ public class ViewDeckActivity extends AppCompatActivity  {
             mDeck_ID = bundle.getLong(MainActivity.DECK_ID);
             if (mDeck_ID > 0) {
                 initComps();
+                mIsStart= true;
             }
         }
     }
@@ -51,6 +54,7 @@ public class ViewDeckActivity extends AppCompatActivity  {
     protected void onPause() {
         super.onPause();
     }
+
 
     /**This function save in shared preferences the actual deck_id*/
     @Override
@@ -66,12 +70,16 @@ public class ViewDeckActivity extends AppCompatActivity  {
     @Override
     protected void onResume() {
         super.onResume();
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String value = prefs.getString("deck_id", "null");
-        if(!value.equals("null")){
-            mDeck_ID= Long.valueOf(value);
-            initComps();
+        if(!mIsStart){
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+            String value = prefs.getString("deck_id", "null");
+            if(!value.equals("null")){
+                mDeck_ID= Long.valueOf(value);
+                initComps();
+                mIsStart= false;
+            }
         }
+
     }
 
     /**This function set the cover of the deck view, title and list of memories cards**/
@@ -102,7 +110,16 @@ public class ViewDeckActivity extends AppCompatActivity  {
     public void startStudy(View v){
         Intent intent = new Intent(this, StudyCardsView.class);
         intent.putExtra("DECK_ID", mDeck_ID);
-        startActivityForResult(intent, 1);
+        startActivityForResult(intent,START_STUDY);
     }
 
+    /**This function it's called when back from Study Activity**/
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == START_STUDY) {
+            if (resultCode == RESULT_OK){
+                Log.d(TAG,"Chamou de Volta");
+            }
+        }
+    }
 }

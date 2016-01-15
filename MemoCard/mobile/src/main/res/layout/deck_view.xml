@@ -30,14 +30,20 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
-                android:hint="@string/study_button"
-                android:onClick="startStudy" />
+                android:text="@string/study_button"
+                android:textColor="@android:color/white"
+                android:onClick="startStudy"
+                android:background="@drawable/study_button"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="5dp"
+                android:elevation="5dp"
+                />
         </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/cards_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="0.4"
             android:background="#BBC2C6"
             android:orientation="horizontal"
@@ -47,7 +53,7 @@
                 android:id="@+id/list_cards_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scrollbars="vertical"></android.support.v7.widget.RecyclerView>
+                android:scrollbars="vertical"/>
         </LinearLayout>
 
     </LinearLayout>
