@@ -1,5 +1,6 @@
 package com.example.vntcaro.memocard.View;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
@@ -16,7 +17,10 @@ import android.widget.ImageView;
 import com.example.vntcaro.memocard.MainActivity;
 import com.example.vntcaro.memocard.Model.Card;
 import com.example.vntcaro.memocard.R;
+import com.example.vntcaro.memocard.Utils.RecyclerItemClickListener;
 import com.example.vntcaro.memocard.View.Adaper.CardAdapter;
+import com.example.vntcaro.memocard.View.Fragment.AddCardDialog;
+import com.example.vntcaro.memocard.View.Fragment.CardDetail;
 
 import java.util.List;
 
@@ -30,10 +34,12 @@ public class ViewDeckActivity extends AppCompatActivity  {
     private boolean mIsStart= false;
     public static long mDeck_ID;
     private static ImageView mCover;
-    private RecyclerView mRecyclerView;
+    private static RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
-    private List<Card> mListCards;
+    private static List<Card> mListCards;
     private static CardAdapter mAdapter;
+    private int mActualPositionCard;
+    public static long mActualIdCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,8 +99,24 @@ public class ViewDeckActivity extends AppCompatActivity  {
         mListCards = Card.getAll(mDeck_ID);
         mAdapter= new CardAdapter(mListCards);
         mRecyclerView.setAdapter(mAdapter);
+        final Context context = getApplicationContext();
+        mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View vi, int position) {
+                        viewCardDetail(vi, position);
+                    }
+                })
+        );
 
     }
+
+    private void viewCardDetail(View vi, int position) {
+        mActualPositionCard= position;
+        mActualIdCard= mAdapter.getItemId(position);
+        CardDetail card = new CardDetail();
+        card.show(getFragmentManager(), "Card Detail");
+    }
+
     /**This function call AddCardDialog when the fab_add_card is pressed**/
     public void addCard(View view){
         AddCardDialog newDialog = new AddCardDialog();
@@ -104,6 +126,20 @@ public class ViewDeckActivity extends AppCompatActivity  {
     /**This Function it's called by AddCardDialog when a new card it's saved in database**/
     public static void onAddCard(Card newCard){
         mAdapter.addItem(newCard);
+    }
+
+    /**This Function it's called by AddCardDialog when a new card it's saved in database**/
+    public static void onEditCard(){
+        mAdapter.notifyItemChanged(((int)mActualIdCard));
+    }
+
+    /**This Function it's called by CardDetail when a card it's deleted on database
+     * this function refresh the list of cards**/
+    public static void onDeleteCard(){
+        mListCards = Card.getAll(mDeck_ID);
+        mAdapter= new CardAdapter(mListCards);
+        mRecyclerView.setAdapter(mAdapter);
+        mAdapter.notifyDataSetChanged();
     }
 
     /**This Function it's called when  studyButton it's pressed and call cardsView**/
@@ -122,4 +158,5 @@ public class ViewDeckActivity extends AppCompatActivity  {
             }
         }
     }
+
 }

@@ -1,4 +1,4 @@
-package com.example.vntcaro.memocard.View;
+package com.example.vntcaro.memocard.View.Fragment;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -13,6 +13,7 @@ import android.widget.EditText;
 import com.example.vntcaro.memocard.Model.Card;
 import com.example.vntcaro.memocard.Model.Deck;
 import com.example.vntcaro.memocard.R;
+import com.example.vntcaro.memocard.View.ViewDeckActivity;
 
 /**
  * Created by vntcaro on 19/10/2015.
@@ -21,9 +22,9 @@ public class AddCardDialog extends DialogFragment {
     private final String TAG ="CARDADD";
     private Deck mDeck;
     private View mDialogView;
-    private EditText mFrontEdit;
-    private EditText mBackEdit;
-    private EditText mHintEdit;
+    private static EditText mFrontEdit;
+    private static EditText mBackEdit;
+    private static EditText mHintEdit;
 
 
     /** This function it's called when the activity is started and get the mDeck_id from the intent sended by ViewDeckActivity */
@@ -90,9 +91,12 @@ public class AddCardDialog extends DialogFragment {
             Card card = new Card(mDeck, frontCard, backCard, hintCard);
             card.save();
             clearFields();
+//            FeedBack.showFeedBack(this.getContext(), FeedBack.SAVE_OK);
             ViewDeckActivity.onAddCard(card);
         }
     }
+
+
 
     /**This function clear all edit fields when a card is saved to provide save another card**/
     private void clearFields(){
@@ -101,17 +105,23 @@ public class AddCardDialog extends DialogFragment {
         mBackEdit.setText("");
         mHintEdit.setText("");
     }
+
     /**This function verify if he fields was correcly settled **/
     private boolean validateFields(String frontCard, String backCard){
         if(frontCard.equals("")){
             mFrontEdit.requestFocus();
             mFrontEdit.setFocusable(true);
+            mFrontEdit.setHint(R.string.front_null_insert);
+            mFrontEdit.setHintTextColor(R.color.mRed);
             return false;
         }
-//        if(backCard.equals("")){
-//            FeedBack.showFeedBack(getApplicationContext(), FeedBack.BACK_ERROR);
-//            return false;
-//        }
+        if(backCard.equals("")){
+            mBackEdit.requestFocus();
+            mBackEdit.setFocusable(true);
+            mBackEdit.setHint(R.string.back_null_insert);
+            mBackEdit.setTextColor(R.color.mRed);
+            return false;
+        }
         return true;
     }
 }

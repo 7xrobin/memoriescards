@@ -14,6 +14,7 @@ import com.example.vntcaro.memocard.Model.Card;
 import com.example.vntcaro.memocard.R;
 import com.example.vntcaro.memocard.Utils.FileManager;
 import com.example.vntcaro.memocard.View.Fragment.CardViewFragment;
+import com.example.vntcaro.memocard.View.Fragment.ResultsFragment;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class StudyCardsView extends AppCompatActivity {
     private ImageButton mBtnOk;
     private ImageButton mBtnErr;
     private int mCardNumber = 0; //Counter of actual card
-    private int mNumCards=0; //Number of cards in this study session
+    public static int mNumCards=0; //Number of cards in this study session
     public static int counters[]; //Counters, number of cards in the deck, number of righ answears,and rongs;
     private List<Integer> mListRongs = new ArrayList<Integer>();
     private String mFILENAME = "PREFERENCES_FILE";

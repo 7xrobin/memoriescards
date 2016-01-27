@@ -1,4 +1,4 @@
-package com.example.vntcaro.memocard.View;
+package com.example.vntcaro.memocard.View.Fragment;
 
 import android.app.Activity;
 import android.app.Dialog;

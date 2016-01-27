@@ -1,5 +1,6 @@
 package com.example.vntcaro.memocard.Model;
 
+import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
@@ -39,7 +40,13 @@ public class Card extends Model{
         this.dateCreate=date;
         this.dateUpdate=date;
     }
-
+    /***Get an specific Deck by a DeckId*/
+    public static Card getCard(long cardId){
+        return new Select()
+                .from(Card.class)
+                .where("id=?", cardId)
+                .executeSingle();
+    }
     /***
      * Get all cards of a deck in data base
      * */
@@ -48,5 +55,18 @@ public class Card extends Model{
                 .from(Card.class)
                 .where("Deck=?",deckId)
                 .execute();
+    }
+
+    public static void deleteCard(Long cardId){
+        Card card = getCard(cardId);
+        if (card != null) {
+            ActiveAndroid.beginTransaction();
+            try {
+                card.delete();
+                ActiveAndroid.setTransactionSuccessful();
+            } finally {
+                ActiveAndroid.endTransaction();
+            }
+        }
     }
 }

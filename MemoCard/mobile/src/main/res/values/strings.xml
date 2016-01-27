@@ -22,6 +22,10 @@
     <string name="rong_desc">Erros</string>
     <string name="results_header">Resultados</string>
     <string name="ok">ok</string>
-    <string name="add_card_header">Criar Novo Card</string>
-    <string name="add_deck_header">Criar Novo Deck</string>>
+    <string name="add_card_header">NOVO CARD</string>
+    <string name="add_deck_header">NOVO DECK</string>
+    <string name="edit">Editar</string>
+    <string name="delete">Deletar</string>
+    <string name="front_null_insert">Frente Necessária</string>
+    <string name="back_null_insert">Verso Necessário</string>>
 </resources>

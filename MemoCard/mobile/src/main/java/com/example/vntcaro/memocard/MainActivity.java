@@ -23,7 +23,7 @@ import android.view.View;
 import com.example.vntcaro.memocard.Model.Deck;
 import com.example.vntcaro.memocard.Utils.RecyclerItemClickListener;
 import com.example.vntcaro.memocard.View.Adaper.DeckAdapter;
-import com.example.vntcaro.memocard.View.AddDeckFragmentDiolog;
+import com.example.vntcaro.memocard.View.Fragment.AddDeckFragmentDiolog;
 import com.example.vntcaro.memocard.View.ViewDeckActivity;
 
 import java.util.List;

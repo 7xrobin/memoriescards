@@ -28,6 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:hint="@string/hint_insert"
+        android:visibility="gone"
         />
 
 </LinearLayout>

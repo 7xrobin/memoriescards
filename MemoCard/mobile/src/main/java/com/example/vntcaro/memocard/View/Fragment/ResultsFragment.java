@@ -1,4 +1,4 @@
-package com.example.vntcaro.memocard.View;
+package com.example.vntcaro.memocard.View.Fragment;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -9,15 +9,19 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.vntcaro.memocard.R;
+import com.example.vntcaro.memocard.View.StudyCardsView;
+import com.example.vntcaro.memocard.View.ViewDeckActivity;
 
 /**
  * Created by vntcaro on 22/12/2015.
  * This class show a fragment dialog with the results of a study session
  */
 public class ResultsFragment extends DialogFragment {
+    private ProgressBar mProgress;
     private Button mErrButton;
     private Button mAllButton;
     private TextView mRightNumb;
@@ -56,6 +60,12 @@ public class ResultsFragment extends DialogFragment {
         mRongNumb = (TextView) mDialogView.findViewById(R.id.rong_number);
         mRightNumb.setText(String.valueOf(StudyCardsView.counters[1]));
         mRongNumb.setText(String.valueOf(StudyCardsView.counters[2]));
+        mProgress= (ProgressBar) mDialogView.findViewById(R.id.progressBar);
+
+        mProgress.setMax(StudyCardsView.mNumCards);
+        mProgress.setProgress(StudyCardsView.counters[1]);
+        mProgress.setScaleX(3f);
+
         mAllButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
