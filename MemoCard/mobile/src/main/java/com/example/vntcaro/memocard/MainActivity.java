@@ -1,6 +1,6 @@
 package com.example.vntcaro.memocard;
 /**
- * <h1>MemoriCards Program</h1>
+ * <h1>MemoryCards Program</h1>
  * This application helps users to memorize things through Cards that they input in the app,
  * so they can study reviewing the cards and test yours hits and errors.
  *
@@ -63,17 +63,14 @@ public class MainActivity extends AppCompatActivity implements
         initComps();
     }
 
-    /**This  function inicializate RecycleView, mLayoutManager , mDeckList, furthermore add  TouchListem for Recycleview*/
+    /**This  function initializes RecycleView, mLayoutManager , mDeckList, furthermore add  TouchListem for Recycleview*/
     public void initComps(){
         mRecyclerView = (RecyclerView) findViewById(R.id.list_decks_view);
         mRecyclerView.setHasFixedSize(true);
-
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        //Inicializate he list of decks saved in database
         mDeckList = (List<Deck>)Deck.getAll();
-        //specify a adapter
         mAdapter = new DeckAdapter(mDeckList);
         mRecyclerView.setAdapter(mAdapter);
         final Context context = getApplicationContext();
@@ -88,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements
 
     /**
      * This function it's called when fab_add_deck button it's pressed
-     * and  call the AddDeckFragmentDiolog to user insert a new deck
+     * and  call the AddDeckFragmentDialog to user insert a new deck
      * **/
     public void addDeck(View view){
         AddDeckFragmentDiolog newDialog = new AddDeckFragmentDiolog();
@@ -97,34 +94,27 @@ public class MainActivity extends AppCompatActivity implements
 
 
     /**
-     * This funtion it's created by default for the AppCompatActivity and generate a main_menu
+     * This function it's created by default for the AppCompatActivity and generate a main_menu
      * @param menu
      * @return
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     /**
-     * this funtion handle the item selected in the main_menu
+     * this function handle the item selected in the main_menu
      * @param item
      * @return
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -146,11 +136,7 @@ public class MainActivity extends AppCompatActivity implements
         actualPositionDeck= position;
         long deckId = mAdapter.getItemId(position);
         intent.putExtra(DECK_ID, deckId);
-//        For shared transition
-//        ImageView deckImg= (ImageView)vi.findViewById(R.id.deck_image);
-//        ActivityOptionsCompat options = ActivityOptionsCompat.
-//                makeSceneTransitionAnimation(this, deckImg, "deck_img");
-//        ActivityCompat.startActivity(this, intent, options.toBundle());
+
 
         startActivityForResult(intent, RETURN_VIEWDECK);
 
